@@ -58,16 +58,25 @@ def validator(integer_array)
   return integer_array == integer_array.sort.reverse
 end
 
+def is_roman?(number)
+  number.chars.to_a.each {|n| return false if !['m', 'd', 'c', 'l', 'x', 'v', 'i'].include?(n)}
+  true
+end
+
 # main
 def roman_to_integer(number)
   number = number.downcase
+  return nil if !is_roman?(number)
   integer_array= integer_array(number)
   return validator(integer_array) ? (integer_array.reduce :+) : nil
 end
 
 # tests
-numbers = ['mccxxivii', 'mccxxvii']
+numbers = ['bbsbmccxx', 'mccxxivii', 'mccxxvii']
 numbers.each do |num|
+  # check if roman
+  puts "#{num} => #{is_roman?(num)}"
+
   # convert to array of integers
   ia = integer_array(num)
   puts "#{num} => #{ia}"
